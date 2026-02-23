@@ -1,10 +1,29 @@
 <?php
 /**
  * Template part for the Hero Section
+ * All content is editable via Appearance → Customize → Hero Section
  */
-$hero_title = get_field('hero_title') ?: 'We build websites that turn <span class="text-primary">visitors</span> into customers.';
-$hero_subtitle = get_field('hero_subtitle') ?: 'Helping modern brands scale through high-performance design and expert engineering. Your success is our code.';
-$hero_image = get_field('hero_image') ?: get_template_directory_uri() . '/assets/img/hero-dashboard.jpg';
+
+// --- Heading (H1) ---
+$hero_heading = get_theme_mod(
+    'hero_heading',
+    'We build websites that turn <span class="text-primary">visitors</span> into customers.'
+);
+
+// --- Paragraph ---
+$hero_paragraph = get_theme_mod(
+    'hero_paragraph',
+    'Helping modern brands scale through high-performance design and expert engineering. Your success is our code.'
+);
+
+// --- Buttons ---
+$btn_primary_label = get_theme_mod('hero_btn_primary_label', 'Start Your Project');
+$btn_primary_url = get_theme_mod('hero_btn_primary_url', '#contact');
+$btn_secondary_label = get_theme_mod('hero_btn_secondary_label', 'View Our Work');
+$btn_secondary_url = get_theme_mod('hero_btn_secondary_url', '#portfolio');
+
+// --- Image ---
+$hero_image = get_theme_mod('hero_image', get_template_directory_uri() . '/assets/img/hero-dashboard.jpg');
 ?>
 
 <section id="hero" class="hero-section">
@@ -13,14 +32,18 @@ $hero_image = get_field('hero_image') ?: get_template_directory_uri() . '/assets
             <div class="col-lg-6">
                 <div class="hero-content">
                     <h1 class="hero-title fw-bold">
-                        <?php echo $hero_title; ?>
+                        <?php echo wp_kses_post($hero_heading); ?>
                     </h1>
                     <p class="hero-subtitle">
-                        <?php echo esc_html($hero_subtitle); ?>
+                        <?php echo esc_html($hero_paragraph); ?>
                     </p>
                     <div class="hero-actions d-flex gap-3">
-                        <a href="#contact" class="btn btn-primary btn-lg">Start Your Project</a>
-                        <a href="#portfolio" class="btn btn-outline-dark btn-lg px-4">View Our Work</a>
+                        <a href="<?php echo esc_url($btn_primary_url); ?>" class="btn btn-primary btn-lg">
+                            <?php echo esc_html($btn_primary_label); ?>
+                        </a>
+                        <a href="<?php echo esc_url($btn_secondary_url); ?>" class="btn btn-outline-dark btn-lg px-4">
+                            <?php echo esc_html($btn_secondary_label); ?>
+                        </a>
                     </div>
                 </div>
             </div>

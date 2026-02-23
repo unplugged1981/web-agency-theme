@@ -86,7 +86,119 @@ add_action('after_setup_theme', function () {
  */
 function web_agency_customize_register($wp_customize)
 {
+    // -------------------------------------------------------
+    // Panel: Hero Section
+    // -------------------------------------------------------
+    $wp_customize->add_panel('web_agency_hero_panel', array(
+        'title' => __('Hero Section', 'web-agency'),
+        'priority' => 25,
+    ));
+
+    // Section: Hero Content
+    $wp_customize->add_section('web_agency_hero', array(
+        'title' => __('Content', 'web-agency'),
+        'panel' => 'web_agency_hero_panel',
+    ));
+
+    // --- Heading (H1) ---
+    $wp_customize->add_setting('hero_heading', array(
+        'default' => 'We build websites that turn <span class="text-primary">visitors</span> into customers.',
+        'sanitize_callback' => 'wp_kses_post',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('hero_heading', array(
+        'label' => __('Heading (H1)', 'web-agency'),
+        'description' => __('HTML allowed. Wrap a word in <code>&lt;span class="text-primary"&gt;&lt;/span&gt;</code> for the blue highlight.', 'web-agency'),
+        'section' => 'web_agency_hero',
+        'type' => 'textarea',
+    ));
+
+    // --- Paragraph text ---
+    $wp_customize->add_setting('hero_paragraph', array(
+        'default' => 'Helping modern brands scale through high-performance design and expert engineering. Your success is our code.',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('hero_paragraph', array(
+        'label' => __('Paragraph Text', 'web-agency'),
+        'section' => 'web_agency_hero',
+        'type' => 'textarea',
+    ));
+
+    // Section: Hero Buttons
+    $wp_customize->add_section('web_agency_hero_buttons', array(
+        'title' => __('Buttons', 'web-agency'),
+        'panel' => 'web_agency_hero_panel',
+    ));
+
+    // --- Primary button label ---
+    $wp_customize->add_setting('hero_btn_primary_label', array(
+        'default' => 'Start Your Project',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('hero_btn_primary_label', array(
+        'label' => __('Primary Button Label', 'web-agency'),
+        'section' => 'web_agency_hero_buttons',
+        'type' => 'text',
+    ));
+
+    // --- Primary button URL ---
+    $wp_customize->add_setting('hero_btn_primary_url', array(
+        'default' => '#contact',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('hero_btn_primary_url', array(
+        'label' => __('Primary Button URL', 'web-agency'),
+        'section' => 'web_agency_hero_buttons',
+        'type' => 'text',
+    ));
+
+    // --- Secondary button label ---
+    $wp_customize->add_setting('hero_btn_secondary_label', array(
+        'default' => 'View Our Work',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('hero_btn_secondary_label', array(
+        'label' => __('Secondary Button Label', 'web-agency'),
+        'section' => 'web_agency_hero_buttons',
+        'type' => 'text',
+    ));
+
+    // --- Secondary button URL ---
+    $wp_customize->add_setting('hero_btn_secondary_url', array(
+        'default' => '#portfolio',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('hero_btn_secondary_url', array(
+        'label' => __('Secondary Button URL', 'web-agency'),
+        'section' => 'web_agency_hero_buttons',
+        'type' => 'text',
+    ));
+
+    // Section: Hero Image
+    $wp_customize->add_section('web_agency_hero_image', array(
+        'title' => __('Image', 'web-agency'),
+        'panel' => 'web_agency_hero_panel',
+    ));
+
+    // --- Hero image ---
+    $wp_customize->add_setting('hero_image', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'hero_image', array(
+        'label' => __('Hero Image', 'web-agency'),
+        'section' => 'web_agency_hero_image',
+    )));
+
+    // -------------------------------------------------------
     // Section: Theme Colors
+    // -------------------------------------------------------
     $wp_customize->add_section('web_agency_colors', array(
         'title' => __('Theme Colors', 'web-agency'),
         'priority' => 30,
@@ -104,7 +216,9 @@ function web_agency_customize_register($wp_customize)
         'settings' => 'primary_color',
     )));
 
+    // -------------------------------------------------------
     // Section: Footer Settings
+    // -------------------------------------------------------
     $wp_customize->add_section('web_agency_footer', array(
         'title' => __('Footer Settings', 'web-agency'),
         'priority' => 200,
