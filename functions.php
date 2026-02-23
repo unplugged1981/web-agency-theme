@@ -248,7 +248,7 @@ function web_agency_customizer_css()
 <style type="text/css">
     :root {
         --primary-color: <?php echo esc_attr($primary_color);
-?>;
+        ?>;
     }
 </style>
 <?php
