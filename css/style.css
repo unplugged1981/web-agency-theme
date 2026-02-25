@@ -234,8 +234,10 @@ h6 {
 }
 
 /* Portfolio Section */
+
+/* Portfolio Section padding-top added by JPL */
 .portfolio-section {
-    padding: 0px;
+    padding-top: 100px;
 }
 
 .portfolio-card {
